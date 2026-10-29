@@ -1,4 +1,4 @@
-import type { Status } from '../status.js';
+﻿import type { Status } from '../status.js';
 
 export function StatusBoard({ status }: { status: Status }) {
   return (
@@ -10,7 +10,7 @@ export function StatusBoard({ status }: { status: Status }) {
           <tr><th>installed</th><td>{status.installed}</td></tr>
           <tr>
             <th>last beat</th>
-            <td>{status.lastBeat ? `${status.lastBeat.at} · pid ${status.lastBeat.pid}` : <span class="warn">none</span>}</td>
+            <td>{status.lastBeat ? `${status.lastBeat.at} Â· pid ${status.lastBeat.pid}` : <span class="warn">none</span>}</td>
           </tr>
         </tbody>
       </table>
@@ -20,10 +20,15 @@ export function StatusBoard({ status }: { status: Status }) {
       ) : (
         <ul>
           {status.nights.map((n) => (
-            <li>{n}</li>
+            <li>
+              <a href={`/digest/${n.night}`}>{n.night}</a>
+              {n.counts && ` ${n.counts.ok} ok · ${n.counts.retry} retry · ${n.counts.fail} fail`}
+            </li>
           ))}
         </ul>
       )}
     </>
   );
 }
+
+
